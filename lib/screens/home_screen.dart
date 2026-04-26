@@ -1,31 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:money_laundry/screens/order_screen.dart';
-import 'package:money_laundry/screens/List_order_screen.dart';
-
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: HomePage(),
-    );
-  }
-}
+import 'package:money_laundry/screens/list_order_screen.dart';
+import 'package:money_laundry/screens/report_screen.dart';
 
 class HomePage extends StatelessWidget {
+  const HomePage({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue.shade400,
+      backgroundColor: Color(0xFF6594B1),
       body: SafeArea(
         child: Column(
           children: [
-
-            /// HEADER 
+            /// HEADER
             Padding(
               padding: const EdgeInsets.all(20),
               child: Row(
@@ -35,8 +22,11 @@ class HomePage extends StatelessWidget {
                     children: [
                       CircleAvatar(
                         radius: 25,
-                        
-                        child: Icon(Icons.local_laundry_service, color: Colors.blue),
+
+                        child: Icon(
+                          Icons.local_laundry_service,
+                          color: Colors.blue,
+                        ),
                       ),
                       SizedBox(width: 10),
                       Text(
@@ -46,27 +36,24 @@ class HomePage extends StatelessWidget {
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                         ),
-                      )
+                      ),
                     ],
                   ),
-                  Icon(Icons.settings, color: Colors.white)
+                  Icon(Icons.settings, color: Colors.white),
                 ],
               ),
             ),
 
-            /// CONTENT 
+            /// CONTENT
             Expanded(
               child: Container(
                 padding: EdgeInsets.all(20),
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.vertical(
-                    top: Radius.circular(30),
-                  ),
+                  borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
                 ),
                 child: ListView(
                   children: [
-
                     /// CARD INFO
                     Container(
                       padding: EdgeInsets.all(16),
@@ -89,9 +76,7 @@ class HomePage extends StatelessWidget {
                           Divider(),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text("Ken-Wash"),
-                            ],
+                            children: [Text("Ken-Wash")],
                           ),
                         ],
                       ),
@@ -110,16 +95,36 @@ class HomePage extends StatelessWidget {
 
                     SizedBox(height: 15),
 
-                    /// MENU GRID 
+                    /// MENU GRID
                     GridView.count(
                       crossAxisCount: 3,
                       shrinkWrap: true,
                       physics: NeverScrollableScrollPhysics(),
                       children: [
-                        menuItem("assets/images/order.jpg", "Order", CreateOrderPage(), context),
-                        // menuItem("assets/images/order.jpg", "List Order", CreateOrderPage(), context),
-                        // menuItem("assets/images/order.jpg", "Report", CreateOrderPage(), context),
-                        // menuItem("assets/images/order.jpg", "Service", CreateOrderPage(), context),
+                        menuItem(
+                          "assets/images/order.jpg",
+                          "Order",
+                          CreateOrderPage(),
+                          context,
+                        ),
+                        menuItem(
+                          "assets/images/listorder.jpg",
+                          "List Order",
+                          ListOrderScreen(),
+                          context,
+                        ),
+                        menuItem(
+                          "assets/images/report.jpg",
+                          "Report",
+                          ReportScreen(),
+                          context,
+                        ),
+                        menuItem(
+                          "assets/images/service.jpg",
+                          "Service",
+                          CreateOrderPage(),
+                          context,
+                        ),
                       ],
                     ),
                   ],
@@ -132,14 +137,15 @@ class HomePage extends StatelessWidget {
     );
   }
 
-
-  Widget menuItem(String imagePath, String title, Widget page, BuildContext context) {
+  Widget menuItem(
+    String imagePath,
+    String title,
+    Widget page,
+    BuildContext context,
+  ) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => page),
-        );
+        Navigator.push(context, MaterialPageRoute(builder: (context) => page));
       },
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -150,11 +156,7 @@ class HomePage extends StatelessWidget {
               color: Colors.blue.shade50,
               shape: BoxShape.circle,
             ),
-            child: Image.asset(
-              imagePath,
-              width: 30,
-              height: 30,
-            ),
+            child: Image.asset(imagePath, width: 30, height: 30),
           ),
           SizedBox(height: 8),
           Text(title),

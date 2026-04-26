@@ -1,21 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:money_laundry/screens/home_screen.dart';
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: CreateOrderPage(),
-    );
-  }
-}
-
 class CreateOrderPage extends StatelessWidget {
+  const CreateOrderPage({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,8 +11,7 @@ class CreateOrderPage extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-
-            //  HEADER 
+            //  HEADER
             Container(
               padding: EdgeInsets.all(16),
               decoration: BoxDecoration(
@@ -38,7 +24,6 @@ class CreateOrderPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-
                   // Title
                   Center(
                     child: Text(
@@ -53,18 +38,11 @@ class CreateOrderPage extends StatelessWidget {
 
                   SizedBox(height: 10),
 
-                
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        "2026/04/13",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      Text(
-                        "Ken-Wash",
-                        style: TextStyle(color: Colors.white),
-                      ),
+                      Text("2026/04/13", style: TextStyle(color: Colors.white)),
+                      Text("Ken-Wash", style: TextStyle(color: Colors.white)),
                     ],
                   ),
 
@@ -88,32 +66,26 @@ class CreateOrderPage extends StatelessWidget {
               ),
             ),
 
-            //  BODY 
+            //  BODY
             Expanded(
               child: Center(
                 child: Text(
                   "Add Service",
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.grey,
-                  ),
+                  style: TextStyle(fontSize: 16, color: Colors.grey),
                 ),
               ),
             ),
 
-            // ================= BOTTOM =================
+            // BOTTOM
             Container(
               padding: EdgeInsets.all(16),
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.vertical(
-                  top: Radius.circular(20),
-                ),
+                borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
               ),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-
                   // Total
                   Row(
                     children: [
@@ -133,13 +105,12 @@ class CreateOrderPage extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-
                       // Batal
                       Expanded(
                         child: ElevatedButton(
                           onPressed: () {
                             Navigator.of(context).pop(
-                              MaterialPageRoute(builder: (_) => HomePage())
+                              MaterialPageRoute(builder: (_) => HomePage()),
                             );
                           },
                           style: ElevatedButton.styleFrom(
@@ -178,10 +149,10 @@ class CreateOrderPage extends StatelessWidget {
                         ),
                       ),
                     ],
-                  )
+                  ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),

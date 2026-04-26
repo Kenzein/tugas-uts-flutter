@@ -30,10 +30,10 @@ class _CustomInputState extends State<CustomInput> {
         labelText: widget.label,
         labelStyle: const TextStyle(
           fontWeight: FontWeight.bold,
-          color: Colors.black,
+          color: Colors.grey,
         ),
         prefixIcon: widget.icon != null
-            ? Icon(widget.icon, color: Colors.black)
+            ? Icon(widget.icon, color: Colors.grey.shade700)
             : null,
         filled: true,
         fillColor: Colors.transparent,

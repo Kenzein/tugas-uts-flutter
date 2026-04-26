@@ -1,6 +1,6 @@
 name: money_laundry
 description: "A new Flutter project."
-publish_to: 'none'
+publish_to: "none"
 version: 0.1.0+1
 
 environment:
@@ -19,7 +19,7 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - ./assets/images/logo.png
+    - ./assets/images/Logo.png
     - ./assets/images/order.jpg
     - ./assets/images/listorder.jpg
     - ./assets/images/report.jpg
@@ -27,6 +27,6 @@ flutter:
 
 flutter_native_splash:
   color: "#215C87"
-  image_dark: ./assets/images/logo.png
+  image_dark: assets/images/Logo.png
   android: true
   ios: true

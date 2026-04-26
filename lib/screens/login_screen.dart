@@ -1,25 +1,18 @@
 import 'package:flutter/material.dart';
-import '../data/users_data.dart';
 import 'package:money_laundry/screens/home_screen.dart';
+import 'package:money_laundry/widgets/custom_input.dart';
 import 'register_screen.dart';
 
-void main() {
-  runApp(MyApp());
-}
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
 
-class MyApp extends StatelessWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: LoginPage(),
-    );
-  }
+  State<LoginPage> createState() => _LoginPageState();
 }
 
-class LoginPage extends StatelessWidget {
-
+class _LoginPageState extends State<LoginPage> {
   final emailController = TextEditingController();
+
   final passwordController = TextEditingController();
 
   @override
@@ -29,90 +22,86 @@ class LoginPage extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-
+            ///TOP SECTION
             Expanded(
               flex: 2,
               child: Padding(
-                padding: EdgeInsets.all(20),
+                padding: const EdgeInsets.all(20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("Hello!",
-                        style: TextStyle(
-                            fontSize: 60,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white)),
-                    Text("Welcome to money laundry",
-                        style: TextStyle(color: Colors.white)),
+                    const SizedBox(height: 150),
+                    Text(
+                      "Hello!",
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        fontSize: 60,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        height: 1,
+                      ),
+                    ),
+                    SizedBox(height: 1),
+                    Text(
+                      "Welcome to money laundry",
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                        height: 1.1,
+                      ),
+                    ),
                   ],
                 ),
               ),
             ),
 
+            ///BOTTOM CARD
             Expanded(
               flex: 3,
               child: Container(
                 padding: EdgeInsets.all(30),
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.vertical(
-                    top: Radius.circular(30),
-                  ),
+                  borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
                 ),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-
-                    Text("Login",
-                        style: TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFF6594B1))),
+                    Text(
+                      "Login",
+                      style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF6594B1),
+                      ),
+                    ),
 
                     SizedBox(height: 20),
 
-                    TextField(
+                    // Custom Input
+                    CustomInput(
+                      label: "Email",
                       controller: emailController,
-                      decoration: inputDecoration("Email", Icons.email),
+                      icon: Icons.email,
                     ),
 
-                    SizedBox(height: 15),
-
-                    TextField(
+                    const SizedBox(height: 15),
+                    // Custom Input Pass
+                    CustomInput(
+                      label: 'Password',
                       controller: passwordController,
-                      obscureText: true,
-                      decoration: inputDecoration("Password", Icons.lock),
+                      icon: Icons.lock,
                     ),
 
                     SizedBox(height: 25),
 
+                    /// BUTTON
                     SizedBox(
                       width: double.infinity,
                       height: 50,
                       child: ElevatedButton(
                         onPressed: () {
-
-                          String email = emailController.text;
-                          String password = passwordController.text;
-
-                          var user = users.firstWhere(
-                            (u) => u["email"] == email,
-                            orElse: () => {},
-                          );
-
-                          if (user.isEmpty) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text("Akun tidak ditemukan")),
-                            );
-                            return;
-                          }
-
-                          if (user["password"] != password) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text("Password salah")),
-                            );
-                            return;
-                          }
-
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder: (_) => HomePage()),
@@ -120,19 +109,48 @@ class LoginPage extends StatelessWidget {
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Color(0xFF6594B1),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                          ),
                         ),
-                        child: Text("Login"),
+                        child: Text(
+                          "Login",
+                          style: TextStyle(fontSize: 20, color: Colors.white),
+                        ),
                       ),
                     ),
 
-                    TextButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (_) => RegisterPage()),
-                        );
-                      },
-                      child: Text("Don't have an account? Sign Up"),
+                    SizedBox(height: 10),
+
+                    /// FORGOT PASSWORD
+                    // Center(
+                    //   child: TextButton(
+                    //     onPressed: () {},
+                    //     child: Text(
+                    //       "Forgot Password",
+                    //       style: TextStyle(
+                    //         color: Color(0xffFF714B),
+                    //         fontWeight: FontWeight.bold,
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
+                    Center(
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (_) => RegisterPage()),
+                          );
+                        },
+                        child: Text(
+                          "Don't have an account? Sign Up",
+                          style: TextStyle(
+                            color: Color(0xffFF714B),
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -140,19 +158,6 @@ class LoginPage extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  InputDecoration inputDecoration(String hint, IconData icon) {
-    return InputDecoration(
-      prefixIcon: Icon(icon),
-      hintText: hint,
-      filled: true,
-      fillColor: Colors.grey.shade100,
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(30),
-        borderSide: BorderSide.none,
       ),
     );
   }
