@@ -12,7 +12,7 @@ class _AboutState extends State<About> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFF6594B1),
-      
+      body: Center(child: Text('Ini halaman About')),
     );
   }
 }

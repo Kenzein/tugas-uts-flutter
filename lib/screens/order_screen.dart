@@ -36,7 +36,7 @@ class CreateOrderPage extends StatelessWidget {
                     ),
                   ),
 
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
 
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -46,7 +46,7 @@ class CreateOrderPage extends StatelessWidget {
                     ],
                   ),
 
-                  SizedBox(height: 15),
+                  const SizedBox(height: 15),
 
                   // Input Customer
                   Container(
@@ -99,7 +99,7 @@ class CreateOrderPage extends StatelessWidget {
                     ],
                   ),
 
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
 
                   // Buttons
                   Row(
@@ -109,8 +109,10 @@ class CreateOrderPage extends StatelessWidget {
                       Expanded(
                         child: ElevatedButton(
                           onPressed: () {
-                            Navigator.of(context).pop(
+                            Navigator.pushAndRemoveUntil(
+                              context,
                               MaterialPageRoute(builder: (_) => HomePage()),
+                              (route) => false,
                             );
                           },
                           style: ElevatedButton.styleFrom(
@@ -121,7 +123,7 @@ class CreateOrderPage extends StatelessWidget {
                         ),
                       ),
 
-                      SizedBox(width: 10),
+                      const SizedBox(width: 10),
 
                       // Simpan
                       Expanded(
@@ -135,7 +137,7 @@ class CreateOrderPage extends StatelessWidget {
                         ),
                       ),
 
-                      SizedBox(width: 10),
+                      const SizedBox(width: 10),
 
                       // Process
                       Expanded(

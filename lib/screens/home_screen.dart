@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:money_laundry/screens/order_screen.dart';
 import 'package:money_laundry/screens/list_order_screen.dart';
 import 'package:money_laundry/screens/report_screen.dart';
+import 'package:money_laundry/widgets/app_sidebar.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      endDrawer: AppSidebar(),
       backgroundColor: Color(0xFF6594B1),
       body: SafeArea(
         child: Column(
@@ -39,7 +41,15 @@ class HomePage extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Icon(Icons.settings, color: Colors.white),
+                  Builder(
+                    builder: (context) => IconButton(
+                      onPressed: () {
+                        Scaffold.of(context).openEndDrawer();
+                      },
+                      icon: Icon(Icons.settings),
+                    ),
+                  ),
+                  // Icon(Icons.settings, color: Colors.white),
                 ],
               ),
             ),
