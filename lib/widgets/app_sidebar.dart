@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:money_laundry/screens/about.dart';
-import 'package:money_laundry/screens/login_screen.dart';
+import 'package:money_laundry/screens/auth/login_screen.dart';
+import 'package:money_laundry/screens/profile_page.dart';
 
 class AppSidebar extends StatelessWidget {
   const AppSidebar({super.key});
@@ -42,7 +43,14 @@ class AppSidebar extends StatelessWidget {
                 ListTile(
                   leading: Icon(Icons.account_circle),
                   title: Text('Profile'),
-                  onTap: () => {},
+                  onTap: () => {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ProfilePage(),
+                      ),
+                    ),
+                  },
                 ),
                 // About
                 ListTile(
@@ -57,8 +65,8 @@ class AppSidebar extends StatelessWidget {
                 ),
                 // Settings
                 ListTile(
-                  leading: Icon(Icons.settings),
-                  title: Text('Settings'),
+                  leading: Icon(Icons.settings, color: Colors.grey),
+                  title: Text('Settings', style: TextStyle(color: Colors.grey)),
                   onTap: () => {},
                 ),
               ],

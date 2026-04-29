@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:money_laundry/screens/home_screen.dart';
+import 'package:money_laundry/screens/home/home_screen.dart';
 import 'package:money_laundry/widgets/custom_input.dart';
 import 'register_screen.dart';
 

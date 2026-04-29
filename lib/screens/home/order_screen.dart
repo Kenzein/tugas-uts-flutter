@@ -1,13 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:money_laundry/screens/home_screen.dart';
+import 'package:money_laundry/screens/home/home_screen.dart';
+import 'package:money_laundry/models/service.dart';
+import 'package:money_laundry/data/service_data.dart';
 
-class CreateOrderPage extends StatelessWidget {
+class CreateOrderPage extends StatefulWidget {
   const CreateOrderPage({super.key});
+
+  @override
+  State<CreateOrderPage> createState() => _CreateOrderPageState();
+}
+
+class _CreateOrderPageState extends State<CreateOrderPage> {
+  List<Service> selectedServices = [];
+
+  int getTotal() {
+    int total = 0;
+    for (var service in selectedServices) {
+      total += service.price;
+    }
+    return total;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[200],
-
       body: SafeArea(
         child: Column(
           children: [
@@ -68,11 +85,36 @@ class CreateOrderPage extends StatelessWidget {
 
             //  BODY
             Expanded(
-              child: Center(
-                child: Text(
-                  "Add Service",
-                  style: TextStyle(fontSize: 16, color: Colors.grey),
-                ),
+              child: ListView(
+                padding: EdgeInsets.all(16),
+                children: services.map((service) {
+                  final isSelected = selectedServices.contains(service);
+
+                  return GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        if (isSelected) {
+                          selectedServices.remove(service);
+                        } else {
+                          selectedServices.add(service);
+                        }
+                      });
+                    },
+                    child: Card(
+                      color: isSelected ? Colors.blue[100] : Colors.white,
+                      child: ListTile(
+                        title: Text(service.name),
+                        subtitle: Text('Rp ${service.price}'),
+                        trailing: Icon(
+                          isSelected
+                              ? Icons.check_circle
+                              : Icons.circle_outlined,
+                          color: isSelected ? Colors.white : Colors.grey,
+                        ),
+                      ),
+                    ),
+                  );
+                }).toList(),
               ),
             ),
 
@@ -88,12 +130,21 @@ class CreateOrderPage extends StatelessWidget {
                 children: [
                   // Total
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "Total",
+                        "Total:",
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        "Rp ${getTotal()}",
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.green,
                         ),
                       ),
                     ],

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:money_laundry/screens/login_screen.dart';
-import 'package:money_laundry/screens/register_screen.dart';
+import 'package:money_laundry/screens/auth/login_screen.dart';
+import 'package:money_laundry/screens/auth/register_screen.dart';
 import 'package:money_laundry/widgets/custom_card.dart';
 
 class AuthChoicePage extends StatelessWidget {
@@ -19,7 +19,6 @@ class AuthChoicePage extends StatelessWidget {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-
                     /// TITLE
                     const Text(
                       "Welcome\nto\nMoney Laundry",
@@ -45,9 +44,7 @@ class AuthChoicePage extends StatelessWidget {
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(
-                              builder: (_) => LoginPage(),
-                            ),
+                            MaterialPageRoute(builder: (_) => LoginPage()),
                           );
                         },
                         child: const Text('Login'),
@@ -68,9 +65,7 @@ class AuthChoicePage extends StatelessWidget {
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(
-                              builder: (_) => RegisterPage(),
-                            ),
+                            MaterialPageRoute(builder: (_) => RegisterPage()),
                           );
                         },
                         child: const Text('Register'),
