@@ -3,6 +3,7 @@ import 'package:money_laundry/screens/home/order_screen.dart';
 import 'package:money_laundry/screens/home/list_order_screen.dart';
 import 'package:money_laundry/screens/home/report_screen.dart';
 import 'package:money_laundry/widgets/app_sidebar.dart';
+import 'package:money_laundry/screens/home/support_screen.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -132,7 +133,7 @@ class HomePage extends StatelessWidget {
                         menuItem(
                           "assets/images/service.jpg",
                           "Service",
-                          CreateOrderPage(),
+                          SupportScreen(),
                           context,
                         ),
                       ],
