@@ -10,6 +10,7 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   final _formKey = GlobalKey<FormState>();
 
+  bool isLoading = false;
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
@@ -113,18 +114,30 @@ class _RegisterPageState extends State<RegisterPage> {
                       SizedBox(
                         height: 50,
                         child: ElevatedButton(
-                          onPressed: () {
-                            if (_formKey.currentState!.validate()) {
-                              if (passwordController.text !=
-                                  confirmPasswordController.text) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text('Password tidak sama'),
-                                  ),
-                                );
-                                return;
-                              }
+                          onPressed: () async {
+                            if (!_formKey.currentState!.validate()) return;
+
+                            if (passwordController.text !=
+                                confirmPasswordController.text) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text('Password tidak sama')),
+                              );
+                              return;
                             }
+
+                            setState(() => isLoading = true);
+
+                            await Future.delayed(Duration(seconds: 3));
+
+                            if (!context.mounted) return;
+
+                            setState(() => isLoading = false);
+
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text('Register berhasil')),
+                            );
+
+                            Navigator.pop(context);
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xFF6594B1),
@@ -132,7 +145,15 @@ class _RegisterPageState extends State<RegisterPage> {
                               borderRadius: BorderRadius.circular(30),
                             ),
                           ),
-                          child: Text("Register"),
+                          child: isLoading
+                              ? CircularProgressIndicator(color: Colors.white)
+                              : Text(
+                                  "Register",
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.white,
+                                  ),
+                                ),
                         ),
                       ),
                     ],

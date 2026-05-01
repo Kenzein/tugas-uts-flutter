@@ -12,6 +12,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final emailController = TextEditingController();
+  bool isLoading = false;
 
   final passwordController = TextEditingController();
 
@@ -101,7 +102,13 @@ class _LoginPageState extends State<LoginPage> {
                       width: double.infinity,
                       height: 50,
                       child: ElevatedButton(
-                        onPressed: () {
+                        onPressed: () async {
+                          setState(() => isLoading = true);
+
+                          await Future.delayed(Duration(seconds: 3));
+
+                          if (!context.mounted) return;
+
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder: (_) => HomePage()),
@@ -113,10 +120,15 @@ class _LoginPageState extends State<LoginPage> {
                             borderRadius: BorderRadius.circular(30),
                           ),
                         ),
-                        child: Text(
-                          "Login",
-                          style: TextStyle(fontSize: 20, color: Colors.white),
-                        ),
+                        child: isLoading
+                            ? CircularProgressIndicator(color: Colors.white)
+                            : Text(
+                                "Login",
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.white,
+                                ),
+                              ),
                       ),
                     ),
 
