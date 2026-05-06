@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:money_laundry/widgets/support_tile.dart';
 
 class SupportScreen extends StatelessWidget {
   const SupportScreen({super.key});
@@ -16,8 +17,8 @@ class SupportScreen extends StatelessWidget {
           ),
           const SizedBox(height: 10),
 
-          buildTile(
-            icon: Icons.help_outline,
+          SupportTile(
+            imagePath: 'assets/images/tanya.jpg',
             title: "Cara membuat order?",
             onTap: () {
               showDialog(
@@ -32,8 +33,8 @@ class SupportScreen extends StatelessWidget {
             },
           ),
 
-          buildTile(
-            icon: Icons.help_outline,
+          SupportTile(
+            imagePath: 'assets/images/tanya.jpg',
             title: "Cara melihat laporan?",
             onTap: () {
               showDialog(
@@ -50,15 +51,14 @@ class SupportScreen extends StatelessWidget {
 
           const SizedBox(height: 20),
 
-          /// Report Bug
           const Text(
             "Report Issue",
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 10),
 
-          buildTile(
-            icon: Icons.bug_report,
+          SupportTile(
+            imagePath: 'assets/images/bug.jpg',
             title: "Laporkan Bug",
             onTap: () {
               ScaffoldMessenger.of(context).showSnackBar(
@@ -69,47 +69,25 @@ class SupportScreen extends StatelessWidget {
 
           const SizedBox(height: 20),
 
-          /// CONTACT
           const Text(
             "Contact Developer",
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
+
           const SizedBox(height: 10),
 
-          buildTile(
-            icon: Icons.email,
+          SupportTile(
+            imagePath: 'assets/images/gmail.png',
             title: "Email",
             subtitle: "support@moneylaundry.com",
           ),
 
-          buildTile(
-            icon: Icons.phone,
+          SupportTile(
+            imagePath: 'assets/images/wa.jpg',
             title: "WhatsApp",
             subtitle: "+62 812-3456-7890",
           ),
         ],
-      ),
-    );
-  }
-
-  ///Reusable Tile
-  Widget buildTile({
-    required IconData icon,
-    required String title,
-    String? subtitle,
-    VoidCallback? onTap,
-  }) {
-    return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-      child: ListTile(
-        leading: CircleAvatar(
-          backgroundColor: Colors.blue.shade100,
-          child: Icon(icon, color: Colors.blue),
-        ),
-        title: Text(title),
-        subtitle: subtitle != null ? Text(subtitle) : null,
-        trailing: onTap != null ? const Icon(Icons.arrow_forward_ios) : null,
-        onTap: onTap,
       ),
     );
   }

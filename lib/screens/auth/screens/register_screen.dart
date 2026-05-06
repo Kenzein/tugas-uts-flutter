@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:money_laundry/screens/auth/exceptions/register_exception.dart';
+import 'package:money_laundry/screens/auth/services/auth_service.dart';
 import 'package:money_laundry/widgets/custom_input.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
+
   @override
   State<RegisterPage> createState() => _RegisterPageState();
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  final _formKey = GlobalKey<FormState>();
-
-  bool isLoading = false;
+  final authService = AuthService();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
   final phoneController = TextEditingController();
+  bool isLoading = false;
 
   @override
   void dispose() {
@@ -28,42 +30,42 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF6594B1),
+      backgroundColor: const Color(0xFF6594B1),
       body: SafeArea(
         child: Column(
           children: [
-            /// ===== TOP SPACE =====
-            Expanded(flex: 2, child: SizedBox()),
+            const Expanded(flex: 2, child: SizedBox()),
 
-            /// ===== FORM =====
             Expanded(
               flex: 5,
               child: Container(
-                padding: EdgeInsets.all(20),
-                decoration: BoxDecoration(
+                padding: const EdgeInsets.all(20),
+                decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
                 ),
                 child: Form(
-                  key: _formKey,
                   child: ListView(
                     children: [
-                      // BACK
+                      /// Back Button
                       Row(
                         children: [
-                          ElevatedButton(
+                          IconButton(
                             onPressed: () {
                               Navigator.pop(context);
                             },
-                            child: Text("Back"),
+                            icon: const Icon(
+                              Icons.arrow_back,
+                              color: Color(0xFF6594B1),
+                            ),
                           ),
                         ],
                       ),
 
-                      SizedBox(height: 15),
+                      const SizedBox(height: 10),
 
-                      /// TITLE
-                      Text(
+                      /// Title
+                      const Text(
                         "Sign Up",
                         style: TextStyle(
                           fontSize: 28,
@@ -72,9 +74,9 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                       ),
 
-                      SizedBox(height: 25),
+                      const SizedBox(height: 25),
 
-                      // Custom Input Email
+                      /// Email
                       CustomInput(
                         label: 'Email',
                         controller: emailController,
@@ -83,7 +85,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
                       const SizedBox(height: 15),
 
-                      // Custom Input Password
+                      /// Password
                       CustomInput(
                         label: 'Password',
                         controller: passwordController,
@@ -92,7 +94,8 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
 
                       const SizedBox(height: 15),
-                      //Custom Input Confirm Password
+
+                      /// Confirm Password
                       CustomInput(
                         label: 'Confirm Password',
                         controller: confirmPasswordController,
@@ -101,44 +104,59 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
 
                       const SizedBox(height: 15),
-                      // Custom Input Phone
+
+                      /// Phone
                       CustomInput(
                         label: 'Phone',
                         controller: phoneController,
                         icon: Icons.phone,
                       ),
 
-                      SizedBox(height: 25),
+                      const SizedBox(height: 25),
 
-                      /// BUTTON
+                      /// Regis Button
                       SizedBox(
                         height: 50,
                         child: ElevatedButton(
-                          onPressed: () async {
-                            if (!_formKey.currentState!.validate()) return;
+                          onPressed: isLoading
+                              ? null
+                              : () async {
+                                  setState(() => isLoading = true);
+                                  try {
+                                    await Future.delayed(
+                                      const Duration(seconds: 2),
+                                    );
 
-                            if (passwordController.text !=
-                                confirmPasswordController.text) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text('Password tidak sama')),
-                              );
-                              return;
-                            }
-
-                            setState(() => isLoading = true);
-
-                            await Future.delayed(Duration(seconds: 3));
-
-                            if (!context.mounted) return;
-
-                            setState(() => isLoading = false);
-
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text('Register berhasil')),
-                            );
-
-                            Navigator.pop(context);
-                          },
+                                    authService.register(
+                                      emailController.text.trim(),
+                                      passwordController.text.trim(),
+                                      confirmPasswordController.text.trim(),
+                                      phoneController.text.trim(),
+                                    );
+                                    if (!context.mounted) return;
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text('Register berhasil'),
+                                      ),
+                                    );
+                                    await Future.delayed(
+                                      const Duration(seconds: 1),
+                                    );
+                                    if (!context.mounted) return;
+                                    Navigator.pop(context);
+                                  } catch (e) {
+                                    final message = e is RegisterException
+                                        ? e.message
+                                        : 'Terjadi kesalahan saat register';
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(content: Text(message)),
+                                    );
+                                  } finally {
+                                    if (mounted) {
+                                      setState(() => isLoading = false);
+                                    }
+                                  }
+                                },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xFF6594B1),
                             shape: RoundedRectangleBorder(
@@ -146,8 +164,10 @@ class _RegisterPageState extends State<RegisterPage> {
                             ),
                           ),
                           child: isLoading
-                              ? CircularProgressIndicator(color: Colors.white)
-                              : Text(
+                              ? const CircularProgressIndicator(
+                                  color: Colors.white,
+                                )
+                              : const Text(
                                   "Register",
                                   style: TextStyle(
                                     fontSize: 20,

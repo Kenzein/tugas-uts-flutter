@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:money_laundry/screens/auth/login_screen.dart';
+import 'package:money_laundry/screens/auth/screens/login_screen.dart';
 // import 'auth_choice_page.dart';
 
 class SplashScreen extends StatefulWidget {

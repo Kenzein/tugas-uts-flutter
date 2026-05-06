@@ -6,10 +6,13 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFF6594B1), // pusat warna utama
       appBar: AppBar(
         title: const Text("Profile"),
         centerTitle: true,
-        backgroundColor: Colors.transparent,
+        backgroundColor: Color(0xFF6594B1),
+        elevation: 0,
+        foregroundColor: Colors.white,
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -18,7 +21,7 @@ class ProfilePage extends StatelessWidget {
 
             // Avatar
             Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
@@ -30,17 +33,17 @@ class ProfilePage extends StatelessWidget {
               ),
               child: const CircleAvatar(
                 radius: 55,
-
-                backgroundImage: NetworkImage(
-                  'https://images.openai.com/static-rsc-4/Ri8jXVU2-otG-vVBRAYWJkQEA9lQTY9oe51OGdFUUqHypj-X7igYiyP_wEhHksa7G7TXg2mXvV2uBybo_ZWMecXOyaxXyLEwEXx9yUvRUWR20zdjsODqIvLGPeghUNGdggi4EJbMHRP-vJT06DT_e9HKsGEftudr8GMTUXvnhT0?purpose=inline',
+                backgroundImage: AssetImage(
+                  'assets/images/appside.jpg', // path sudah benar
                 ),
               ),
             ),
+
             const SizedBox(height: 15),
 
             // Nama
             const Text(
-              "Kenzy",
+              "Valencia",
               style: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
@@ -48,15 +51,15 @@ class ProfilePage extends StatelessWidget {
               ),
             ),
 
-            //Email
+            // Email
             const Text(
-              "kenzy@example.com",
-              style: TextStyle(color: Colors.white70),
+              "valencia@gmail.com",
+              style: TextStyle(color: Colors.white),
             ),
 
             const SizedBox(height: 25),
 
-            //Card Info
+            // Card Info (tetap putih biar kontras)
             Container(
               margin: const EdgeInsets.all(20),
               padding: const EdgeInsets.all(10),
@@ -69,13 +72,13 @@ class ProfilePage extends StatelessWidget {
                   ListTile(
                     leading: Icon(Icons.person),
                     title: Text("Nama"),
-                    subtitle: Text("Kenzy"),
+                    subtitle: Text("Valencia"),
                   ),
                   Divider(),
                   ListTile(
                     leading: Icon(Icons.email),
                     title: Text("Email"),
-                    subtitle: Text("kenzy@example.com"),
+                    subtitle: Text("valencia@gmail.com"),
                   ),
                   Divider(),
                   ListTile(
@@ -89,11 +92,11 @@ class ProfilePage extends StatelessWidget {
 
             const SizedBox(height: 10),
 
-            // Edit Profile Button
+            // Button
             ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.white,
-                foregroundColor: Colors.blue,
+                foregroundColor: Color(0xFF6594B1),
                 padding: const EdgeInsets.symmetric(
                   horizontal: 30,
                   vertical: 12,

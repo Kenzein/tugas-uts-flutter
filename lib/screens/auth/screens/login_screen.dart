@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:money_laundry/screens/auth/exceptions/login_exception.dart';
 import 'package:money_laundry/screens/home/home_screen.dart';
+import 'package:money_laundry/screens/auth/services/auth_service.dart';
 import 'package:money_laundry/widgets/custom_input.dart';
 import 'register_screen.dart';
 
@@ -12,9 +14,9 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final emailController = TextEditingController();
-  bool isLoading = false;
-
   final passwordController = TextEditingController();
+  final authService = AuthService();
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -92,6 +94,7 @@ class _LoginPageState extends State<LoginPage> {
                     CustomInput(
                       label: 'Password',
                       controller: passwordController,
+                      isPassword: true,
                       icon: Icons.lock,
                     ),
 
@@ -104,15 +107,32 @@ class _LoginPageState extends State<LoginPage> {
                       child: ElevatedButton(
                         onPressed: () async {
                           setState(() => isLoading = true);
+                          try {
+                            await Future.delayed(Duration(seconds: 2));
 
-                          await Future.delayed(Duration(seconds: 3));
+                            authService.login(
+                              emailController.text,
+                              passwordController.text,
+                            );
 
-                          if (!context.mounted) return;
+                            if (!context.mounted) return;
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (_) => HomePage()),
+                            );
+                          } catch (e) {
+                            final message = e is LoginException
+                                ? e.message
+                                : 'Terjadi kesalahan saat login';
 
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (_) => HomePage()),
-                          );
+                            ScaffoldMessenger.of(
+                              context,
+                            ).showSnackBar(SnackBar(content: Text(message)));
+                          } finally {
+                            if (mounted) {
+                              setState(() => isLoading = false);
+                            }
+                          }
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Color(0xFF6594B1),

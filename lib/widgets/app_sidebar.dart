@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:money_laundry/screens/about.dart';
-import 'package:money_laundry/screens/auth/login_screen.dart';
+import 'package:money_laundry/screens/auth/screens/login_screen.dart';
 import 'package:money_laundry/screens/profile_page.dart';
 
 class AppSidebar extends StatelessWidget {
@@ -13,12 +13,12 @@ class AppSidebar extends StatelessWidget {
         children: [
           // Header
           UserAccountsDrawerHeader(
-            accountName: Text('Kenzy'),
-            accountEmail: Text('kenzy.example.com'),
+            accountName: Text('Kenzy', style: TextStyle(color: Colors.black12)),
+            accountEmail: Text('valencia@gmail.com'),
             currentAccountPicture: CircleAvatar(
               child: ClipOval(
-                child: Image.network(
-                  'https://images.openai.com/static-rsc-4/Ri8jXVU2-otG-vVBRAYWJkQEA9lQTY9oe51OGdFUUqHypj-X7igYiyP_wEhHksa7G7TXg2mXvV2uBybo_ZWMecXOyaxXyLEwEXx9yUvRUWR20zdjsODqIvLGPeghUNGdggi4EJbMHRP-vJT06DT_e9HKsGEftudr8GMTUXvnhT0?purpose=inline',
+                child: Image(
+                  image: AssetImage('./assets/images/appside.jpg'),
                   width: 90,
                   height: 90,
                   fit: BoxFit.cover,
@@ -26,11 +26,8 @@ class AppSidebar extends StatelessWidget {
               ),
             ),
             decoration: BoxDecoration(
-              // color: Colors.blueGrey,
               image: DecorationImage(
-                image: NetworkImage(
-                  'https://images.openai.com/static-rsc-4/Ri8jXVU2-otG-vVBRAYWJkQEA9lQTY9oe51OGdFUUqHypj-X7igYiyP_wEhHksa7G7TXg2mXvV2uBybo_ZWMecXOyaxXyLEwEXx9yUvRUWR20zdjsODqIvLGPeghUNGdggi4EJbMHRP-vJT06DT_e9HKsGEftudr8GMTUXvnhT0?purpose=inline',
-                ),
+                image: AssetImage('./assets/images/background.jpeg'),
                 fit: BoxFit.cover,
               ),
             ),

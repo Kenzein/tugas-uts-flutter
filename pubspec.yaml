@@ -24,6 +24,15 @@ flutter:
     - ./assets/images/listorder.jpg
     - ./assets/images/report.jpg
     - ./assets/images/service.jpg
+    - ./assets/images/appside.jpg
+    -  ./assets/images/background.jpeg
+    - ./assets/images/wa.jpg
+    - ./assets/images/gmail.png
+    - ./assets/images/bug.jpg
+    - ./assets/images/tanya.jpg
+    - ./assets/images/steve.jpeg
+    - ./assets/images/ken.jpeg
+    - ./assets/images/nas.jpeg
 
 flutter_native_splash:
   color: "#215C87"

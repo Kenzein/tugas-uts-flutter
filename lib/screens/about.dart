@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:money_laundry/widgets/member_card.dart';
 
 class About extends StatefulWidget {
   const About({super.key});
@@ -11,32 +12,19 @@ class _AboutState extends State<About> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue,
+      backgroundColor: const Color(0xFF6594B1),
       appBar: AppBar(
         title: const Text("About"),
         centerTitle: true,
         backgroundColor: Colors.transparent,
+        elevation: 0,
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
             const SizedBox(height: 20),
 
-            // // Logo
-            // Container(
-            //   width: 120,
-            //   height: 120,
-            //   decoration: BoxDecoration(
-            //     shape: BoxShape.circle,
-            //     color: Colors.transparent,
-            //   ),
-            //   child: ClipOval(
-            //     child: Image.asset('assets/images/Logo.png', fit: BoxFit.cover),
-            //   ),
-            // ),
-            const SizedBox(height: 10),
-
-            // Nama App
+            /// Nama App
             const Text(
               "Money Laundry",
               style: TextStyle(
@@ -45,17 +33,18 @@ class _AboutState extends State<About> {
                 color: Colors.white,
               ),
             ),
+
             const SizedBox(height: 5),
 
-            // Bagian Version
+            /// Versi
             const Text("V 1.0.0", style: TextStyle(color: Colors.white70)),
 
             const SizedBox(height: 10),
 
-            // Deskripsi
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: const Text(
+            /// Deskripsi
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Text(
                 "Aplikasi ini membantu pengelolaan laundry agar lebih mudah, cepat, dan efisien.",
                 textAlign: TextAlign.center,
                 style: TextStyle(color: Colors.white, fontSize: 16),
@@ -64,7 +53,7 @@ class _AboutState extends State<About> {
 
             const SizedBox(height: 30),
 
-            // Card Tim
+            /// Card Developer
             Container(
               padding: const EdgeInsets.all(20),
               margin: const EdgeInsets.all(20),
@@ -88,10 +77,26 @@ class _AboutState extends State<About> {
                     crossAxisSpacing: 10,
                     mainAxisSpacing: 10,
                     children: [
-                      buildMember("Kenzy Setio", "@kenzysetio"),
-                      buildMember("Steven Fandich", "@stevenfandich"),
-                      buildMember("Avinash", "@avinash"),
-                      buildMember("Valencia", "@valencia"),
+                      MemberCard(
+                        name: "Kenzy Setio",
+                        role: "@kenzysetio",
+                        imagePath: "assets/images/ken.jpeg",
+                      ),
+                      MemberCard(
+                        name: "Steven Fandich",
+                        role: "@stevenfandich",
+                        imagePath: "assets/images/steve.jpeg",
+                      ),
+                      MemberCard(
+                        name: "Avinash",
+                        role: "@avinash",
+                        imagePath: "assets/images/nas.jpeg",
+                      ),
+                      MemberCard(
+                        name: "Valencia",
+                        role: "@valencia",
+                        imagePath: "assets/images/appside.jpg",
+                      ),
                     ],
                   ),
                 ],
@@ -100,7 +105,7 @@ class _AboutState extends State<About> {
 
             const SizedBox(height: 10),
 
-            // Footer
+            /// Footer
             const Text(
               "© 2026 Mikriskid",
               style: TextStyle(color: Colors.white70),
@@ -113,17 +118,32 @@ class _AboutState extends State<About> {
     );
   }
 
-  // Widget untuk informasi anggota tim
-  Widget buildMember(String name, String role) {
+  /// Widget Member (pakai foto)
+  Widget buildMember(String name, String role, String imagePath) {
     return Card(
       elevation: 4,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const CircleAvatar(radius: 25, child: Icon(Icons.person)),
+          /// FOTO PROFILE
+          ClipOval(
+            child: Image.asset(
+              imagePath,
+              width: 60,
+              height: 60,
+              fit: BoxFit.cover,
+            ),
+          ),
+
           const SizedBox(height: 8),
-          Text(name, style: const TextStyle(fontWeight: FontWeight.bold)),
+
+          Text(
+            name,
+            style: const TextStyle(fontWeight: FontWeight.bold),
+            textAlign: TextAlign.center,
+          ),
+
           Text(role, style: const TextStyle(color: Colors.grey)),
         ],
       ),

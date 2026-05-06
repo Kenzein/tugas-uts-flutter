@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:money_laundry/screens/home/home_screen.dart';
+import 'package:money_laundry/screens/home/list_order_screen.dart';
 import 'package:money_laundry/models/service.dart';
 import 'package:money_laundry/data/service_data.dart';
 
-class CreateOrderPage extends StatefulWidget {
-  const CreateOrderPage({super.key});
+class OrderPage extends StatefulWidget {
+  const OrderPage({super.key});
 
   @override
-  State<CreateOrderPage> createState() => _CreateOrderPageState();
+  State<OrderPage> createState() => _OrderPageState();
 }
 
-class _CreateOrderPageState extends State<CreateOrderPage> {
+class _OrderPageState extends State<OrderPage> {
   List<Service> selectedServices = [];
 
   int getTotal() {
@@ -28,11 +29,11 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
       body: SafeArea(
         child: Column(
           children: [
-            //  HEADER
+            //
             Container(
-              padding: EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: Colors.blue[300],
+              padding: const EdgeInsets.all(16),
+              decoration: const BoxDecoration(
+                color: Color(0xFF6594B1), // ✅ FIXED
                 borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(30),
                   bottomRight: Radius.circular(30),
@@ -41,8 +42,7 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Title
-                  Center(
+                  const Center(
                     child: Text(
                       "Create Order",
                       style: TextStyle(
@@ -52,10 +52,9 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                       ),
                     ),
                   ),
-
                   const SizedBox(height: 10),
 
-                  Row(
+                  const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text("2026/04/13", style: TextStyle(color: Colors.white)),
@@ -65,16 +64,15 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
 
                   const SizedBox(height: 15),
 
-                  // Input Customer
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 16),
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
                     height: 45,
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(25),
                     ),
                     alignment: Alignment.centerLeft,
-                    child: Text(
+                    child: const Text(
                       "Select Customers",
                       style: TextStyle(color: Colors.grey),
                     ),
@@ -83,10 +81,10 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
               ),
             ),
 
-            //  BODY
+            //
             Expanded(
               child: ListView(
-                padding: EdgeInsets.all(16),
+                padding: const EdgeInsets.all(16),
                 children: services.map((service) {
                   final isSelected = selectedServices.contains(service);
 
@@ -109,7 +107,7 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                           isSelected
                               ? Icons.check_circle
                               : Icons.circle_outlined,
-                          color: isSelected ? Colors.white : Colors.grey,
+                          color: isSelected ? Color(0xFF6594B1) : Colors.grey,
                         ),
                       ),
                     ),
@@ -118,21 +116,21 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
               ),
             ),
 
-            // BOTTOM
+            //
             Container(
-              padding: EdgeInsets.all(16),
-              decoration: BoxDecoration(
+              padding: const EdgeInsets.all(16),
+              decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
               ),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  // Total
+                  // TOTAL
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
+                      const Text(
                         "Total:",
                         style: TextStyle(
                           fontSize: 16,
@@ -141,7 +139,7 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                       ),
                       Text(
                         "Rp ${getTotal()}",
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
                           color: Colors.green,
@@ -152,53 +150,63 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
 
                   const SizedBox(height: 10),
 
-                  // Buttons
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      // Batal
+                      //
                       Expanded(
                         child: ElevatedButton(
                           onPressed: () {
                             Navigator.pushAndRemoveUntil(
                               context,
-                              MaterialPageRoute(builder: (_) => HomePage()),
+                              MaterialPageRoute(
+                                builder: (_) => const HomePage(),
+                              ),
                               (route) => false,
                             );
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blue,
-                            shape: StadiumBorder(),
+                            backgroundColor: const Color(0xFF6594B1),
+                            foregroundColor: Colors.white,
+                            shape: const StadiumBorder(),
                           ),
-                          child: Text("Batalkan"),
+                          child: const Text("Batalkan"),
                         ),
                       ),
 
                       const SizedBox(width: 10),
 
-                      // Simpan
+                      //
                       Expanded(
                         child: ElevatedButton(
                           onPressed: () {},
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.lightBlue,
-                            shape: StadiumBorder(),
+                            backgroundColor: const Color(0xFF6594B1),
+                            foregroundColor: Colors.white,
+                            shape: const StadiumBorder(),
                           ),
-                          child: Text("Simpan"),
+                          child: const Text("Simpan"),
                         ),
                       ),
 
                       const SizedBox(width: 10),
 
-                      // Process
+                      //
                       Expanded(
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => const ListOrderScreen(),
+                              ),
+                            );
+                          },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.orange,
-                            shape: StadiumBorder(),
+                            foregroundColor: Colors.white,
+                            shape: const StadiumBorder(),
                           ),
-                          child: Text("Process"),
+                          child: const Text("Process"),
                         ),
                       ),
                     ],

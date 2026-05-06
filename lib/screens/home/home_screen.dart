@@ -4,137 +4,144 @@ import 'package:money_laundry/screens/home/list_order_screen.dart';
 import 'package:money_laundry/screens/home/report_screen.dart';
 import 'package:money_laundry/widgets/app_sidebar.dart';
 import 'package:money_laundry/screens/home/support_screen.dart';
+import 'package:money_laundry/widgets/menu_item.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      endDrawer: AppSidebar(),
-      backgroundColor: Color(0xFF6594B1),
+      endDrawer: const AppSidebar(),
+      backgroundColor: Colors.white,
       body: SafeArea(
-        child: Column(
+        child: Stack(
           children: [
-            /// HEADER
-            Padding(
-              padding: const EdgeInsets.all(20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
+            Column(
+              children: [
+                Container(
+                  width: double.infinity,
+                  height: 300,
+                  decoration: const BoxDecoration(
+                    color: Color(0xFF6E97B5),
+                    borderRadius: BorderRadius.only(
+                      bottomRight: Radius.circular(60),
+                    ),
+                  ),
+                  child: Stack(
                     children: [
-                      CircleAvatar(
-                        radius: 25,
-
-                        child: Icon(
-                          Icons.local_laundry_service,
-                          color: Colors.blue,
+                      Center(
+                        child: Image.asset(
+                          'assets/images/Logo.png',
+                          width: 2000,
+                          height: 2000,
+                          fit: BoxFit.contain,
                         ),
                       ),
-                      SizedBox(width: 10),
-                      Text(
-                        "Money\nLaundry",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
+
+                      Positioned(
+                        top: 10,
+                        right: 10,
+                        child: Builder(
+                          builder: (context) => IconButton(
+                            onPressed: () {
+                              Scaffold.of(context).openEndDrawer();
+                            },
+                            icon: const Icon(
+                              Icons.settings,
+                              color: Colors.white,
+                              size: 30,
+                            ),
+                          ),
                         ),
                       ),
                     ],
                   ),
-                  Builder(
-                    builder: (context) => IconButton(
-                      onPressed: () {
-                        Scaffold.of(context).openEndDrawer();
-                      },
-                      icon: Icon(Icons.settings),
-                    ),
-                  ),
-                  // Icon(Icons.settings, color: Colors.white),
-                ],
-              ),
+                ),
+              ],
             ),
 
-            /// CONTENT
-            Expanded(
+            Positioned(
+              top: 200,
+              left: 0,
+              right: 0,
+              bottom: 0,
               child: Container(
-                padding: EdgeInsets.all(20),
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(28),
+                    topRight: Radius.circular(28),
+                  ),
                 ),
                 child: ListView(
+                  padding: const EdgeInsets.fromLTRB(16, 18, 16, 20),
                   children: [
-                    /// CARD INFO
                     Container(
-                      padding: EdgeInsets.all(16),
+                      padding: const EdgeInsets.all(18),
                       decoration: BoxDecoration(
-                        color: Colors.grey.shade100,
-                        borderRadius: BorderRadius.circular(20),
+                        color: const Color(0xFFF2F2F2),
+                        borderRadius: BorderRadius.circular(24),
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("Expired"),
-                          SizedBox(height: 5),
-                          Text(
+                          const Text("Expired", style: TextStyle(fontSize: 16)),
+                          const SizedBox(height: 6),
+                          const Text(
                             "26 Apr 2026",
                             style: TextStyle(
+                              fontSize: 20,
                               fontWeight: FontWeight.bold,
-                              fontSize: 16,
                             ),
                           ),
-                          Divider(),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [Text("Ken-Wash")],
-                          ),
+                          const SizedBox(height: 12),
+                          Divider(color: Colors.grey.shade400),
+                          const SizedBox(height: 12),
+                          const Text("Ken-Wash"),
                         ],
                       ),
                     ),
 
-                    SizedBox(height: 20),
+                    const SizedBox(height: 22),
 
-                    /// MENU TITLE
-                    Text(
+                    const Text(
                       "Menu",
                       style: TextStyle(
-                        fontSize: 18,
+                        fontSize: 26,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
 
-                    SizedBox(height: 15),
+                    const SizedBox(height: 20),
 
-                    /// MENU GRID
                     GridView.count(
                       crossAxisCount: 3,
                       shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
+                      mainAxisSpacing: 10,
+                      crossAxisSpacing: 6,
+                      childAspectRatio: 1,
                       children: [
-                        menuItem(
-                          "assets/images/order.jpg",
-                          "Order",
-                          CreateOrderPage(),
-                          context,
+                        MenuItem(
+                          imagePath: 'assets/images/order.jpg',
+                          title: 'Order',
+                          page: const OrderPage(),
                         ),
-                        menuItem(
-                          "assets/images/listorder.jpg",
-                          "List Order",
-                          ListOrderScreen(),
-                          context,
+                        MenuItem(
+                          imagePath: 'assets/images/listorder.jpg',
+                          title: 'List Order',
+                          page: const ListOrderScreen(),
                         ),
-                        menuItem(
-                          "assets/images/report.jpg",
-                          "Report",
-                          ReportScreen(),
-                          context,
+                        MenuItem(
+                          imagePath: 'assets/images/report.jpg',
+                          title: 'Report',
+                          page: const ReportScreen(),
                         ),
-                        menuItem(
-                          "assets/images/service.jpg",
-                          "Service",
-                          SupportScreen(),
-                          context,
+                        MenuItem(
+                          imagePath: 'assets/images/service.jpg',
+                          title: 'Support',
+                          page: const SupportScreen(),
                         ),
                       ],
                     ),
@@ -144,34 +151,6 @@ class HomePage extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget menuItem(
-    String imagePath,
-    String title,
-    Widget page,
-    BuildContext context,
-  ) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => page));
-      },
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            padding: EdgeInsets.all(15),
-            decoration: BoxDecoration(
-              color: Colors.blue.shade50,
-              shape: BoxShape.circle,
-            ),
-            child: Image.asset(imagePath, width: 30, height: 30),
-          ),
-          SizedBox(height: 8),
-          Text(title),
-        ],
       ),
     );
   }
